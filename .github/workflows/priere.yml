@@ -1,4 +1,4 @@
-name: Horaires de prière
+name: Horaires de prière #test
 
 on:
   schedule:
