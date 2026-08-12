@@ -19,7 +19,7 @@ LON = os.environ["LON"]
 CITY = os.environ.get("CITY", "")
 TEST_MODE = os.environ.get("TEST_MODE", "false").lower() == "true"
 METHODE_CALCUL = 2  # 2 = Islamic Society of North America ; change si besoin (voir doc Aladhan)
-TOLERANCE_MINUTES = 5  # doit correspondre à la fréquence du cron GitHub Actions
+TOLERANCE_MINUTES = 15  # doit correspondre à la fréquence du cron GitHub Actions
  
  
 def get_prayer_times():
