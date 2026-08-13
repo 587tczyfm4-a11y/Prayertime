@@ -1,4 +1,4 @@
-name: Horaires de prière #test
+name: Horaires de prière
 
 on:
   schedule:
@@ -9,6 +9,9 @@ on:
         description: 'Envoyer un message de test immédiatement (true/false)'
         required: false
         default: 'false'
+
+permissions:
+  contents: write
 
 jobs:
   check:
@@ -26,3 +29,14 @@ jobs:
           LON: ${{ secrets.LON }}
           CITY: ${{ vars.CITY }}
           TEST_MODE: ${{ github.event.inputs.test || 'false' }}
+      - name: Sauvegarder l'état anti-doublon si modifié
+        run: |
+          if [ -n "$(git status --porcelain last_sent.json 2>/dev/null)" ]; then
+            git config user.name "prayer-bot"
+            git config user.email "prayer-bot@users.noreply.github.com"
+            git add last_sent.json
+            git commit -m "Mise à jour état prières envoyées"
+            git push
+          else
+            echo "Aucun changement à sauvegarder"
+          fi
